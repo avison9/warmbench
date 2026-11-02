@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 820" font-family="Helvetica, Arial, sans-serif" font-size="12" role="img" aria-label="warmbench pool architecture: agents submit to a control plane that keys, plans, schedules and leases jobs; editor slots are grown by copy-on-write clone from read-only seeds and snapshotted back into seeds after a clean exit.">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker>
+    <marker id="acc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c2410c"/></marker>
+  </defs>
+  <rect x="0" y="0" width="1200" height="820" fill="#ffffff"/>
+
+  <!-- agents -->
+  <rect x="40" y="20" width="1120" height="75" rx="8" fill="#f3f4f6" stroke="#374151"/>
+  <text x="60" y="50" font-weight="bold" font-size="14" fill="#111827">agents</text>
+  <text x="60" y="70" fill="#374151">Claude Code, Codex, scripts, humans</text>
+  <g fill="#ffffff" stroke="#374151">
+    <rect x="330" y="40" width="150" height="40" rx="5"/>
+    <rect x="500" y="40" width="150" height="40" rx="5"/>
+    <rect x="670" y="40" width="150" height="40" rx="5"/>
+    <rect x="840" y="40" width="150" height="40" rx="5"/>
+  </g>
+  <g text-anchor="middle" fill="#111827">
+    <text x="405" y="64">agent A · worktree A</text>
+    <text x="575" y="64">agent B · worktree B</text>
+    <text x="745" y="64">agent C · worktree C</text>
+    <text x="915" y="64">agent D · worktree D</text>
+  </g>
+
+  <!-- agent <-> intake -->
+  <line x1="110" y1="95" x2="110" y2="183" stroke="#374151" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="118" y="125" fill="#111827">run_tests(goal)</text>
+  <line x1="250" y1="185" x2="250" y2="97" stroke="#374151" stroke-width="1.5" marker-end="url(#a)"/>
+  <text x="258" y="116" fill="#111827">labelled result:</text>
+  <text x="258" y="131" fill="#111827">new · pre-existing · flaky</text>
+
+  <!-- control plane -->
+  <rect x="40" y="140" width="1120" height="300" rx="8" fill="none" stroke="#374151" stroke-width="1.5"/>
+  <text x="440" y="165" font-weight="bold" font-size="14" fill="#111827">warmbenchd: control plane (Go)</text>
+
+  <g fill="#ffffff" stroke="#374151">
+    <rect x="70" y="185" width="230" height="70" rx="5"/>
+    <rect x="340" y="185" width="230" height="70" rx="5"/>
+    <rect x="610" y="185" width="230" height="70" rx="5"/>
+    <rect x="880" y="185" width="230" height="70" rx="5"/>
+    <rect x="70" y="330" width="230" height="70" rx="5"/>
+    <rect x="340" y="330" width="230" height="70" rx="5"/>
+    <rect x="610" y="330" width="230" height="70" rx="5"/>
+    <rect x="880" y="330" width="230" height="70" rx="5"/>
+  </g>
+  <g text-anchor="middle" fill="#111827">
+    <text x="185" y="208" font-weight="bold">Intake</text>
+    <text x="185" y="228">key = hash(tree, class, filter)</text>
+    <text x="185" y="244">dedupe · cache hit returns</text>
+
+    <text x="455" y="208" font-weight="bold">Ladder planner</text>
+    <text x="455" y="228">R0 compile → R1 → R2 → R3 → R4</text>
+    <text x="455" y="244">stop at first failure</text>
+
+    <text x="725" y="208" font-weight="bold">Scheduler</text>
+    <text x="725" y="228">place on min cost(job, slot)</text>
+    <text x="725" y="244">priority · ageing · fair share</text>
+
+    <text x="995" y="208" font-weight="bold">Resource governor</text>
+    <text x="995" y="228">tokens: ram · cpu · gpu</text>
+    <text x="995" y="244">quiet · device:&lt;serial&gt;</text>
+
+    <text x="185" y="353" font-weight="bold">Content store</text>
+    <text x="185" y="373">results · baselines</text>
+    <text x="185" y="389">flake history · metrics</text>
+
+    <text x="455" y="353" font-weight="bold">Seed manager</text>
+    <text x="455" y="373">one seed per class + base</text>
+    <text x="455" y="389">grow · refresh · gc</text>
+
+    <text x="725" y="353" font-weight="bold">Lease manager</text>
+    <text x="725" y="373">lease + epoch fencing</text>
+    <text x="725" y="389">watchdog · recycle · requeue once</text>
+
+    <text x="995" y="353" font-weight="bold">Worktree watcher</text>
+    <text x="995" y="373">speculative pre-compile</text>
+    <text x="995" y="389">collision radar</text>
+  </g>
+
+  <!-- control plane arrows -->
+  <g stroke="#374151" stroke-width="1.5" fill="none">
+    <line x1="300" y1="220" x2="338" y2="220" marker-end="url(#a)"/>
+    <line x1="570" y1="220" x2="608" y2="220" marker-end="url(#a)"/>
+    <line x1="880" y1="220" x2="842" y2="220" marker-end="url(#a)"/>
+    <line x1="185" y1="257" x2="185" y2="328" marker-start="url(#a)" marker-end="url(#a)"/>
+    <line x1="725" y1="255" x2="725" y2="328" marker-end="url(#a)"/>
+    <line x1="900" y1="330" x2="832" y2="258" marker-end="url(#a)"/>
+    <polyline points="1140,95 1140,365 1112,365" stroke-dasharray="5 4" marker-end="url(#a)"/>
+  </g>
+  <text x="861" y="212" text-anchor="middle" font-size="11" fill="#111827">tokens</text>
+  <text x="193" y="297" fill="#111827">lookup / store by key</text>
+  <text x="733" y="297" fill="#111827">assign(job, slot)</text>
+  <text x="878" y="300" fill="#111827">speculative jobs</text>
+  <text x="1132" y="118" text-anchor="end" fill="#111827">file events</text>
+
+  <!-- control plane -> data plane -->
+  <g stroke="#374151" stroke-width="1.5">
+    <line x1="430" y1="400" x2="430" y2="533" marker-end="url(#a)"/>
+    <line x1="690" y1="400" x2="690" y2="533" marker-end="url(#a)"/>
+    <line x1="770" y1="533" x2="770" y2="402" marker-end="url(#a)"/>
+  </g>
+  <text x="422" y="468" text-anchor="end" fill="#111827">snapshot · gc</text>
+  <text x="682" y="468" text-anchor="end" fill="#111827">lease(epoch) · sync diff · run rung</text>
+  <text x="778" y="468" fill="#111827">heartbeat · progress · result</text>
+
+  <!-- data plane -->
+  <rect x="40" y="490" width="1120" height="310" rx="8" fill="none" stroke="#374151" stroke-width="1.5"/>
+  <text x="60" y="515" font-weight="bold" font-size="14" fill="#111827">data plane: seeds and lanes</text>
+
+  <!-- compile lane + build lane -->
+  <rect x="60" y="535" width="230" height="110" rx="5" fill="#ffffff" stroke="#374151"/>
+  <g text-anchor="middle" fill="#111827">
+    <text x="175" y="560" font-weight="bold">compile lane (R0)</text>
+    <text x="175" y="582">shadow compiler workers</text>
+    <text x="175" y="600">no editor held</text>
+    <text x="175" y="618">may only fail fast</text>
+  </g>
+  <rect x="60" y="665" width="230" height="110" rx="5" fill="#ffffff" stroke="#374151" stroke-dasharray="5 4"/>
+  <g text-anchor="middle" fill="#111827">
+    <text x="175" y="690" font-weight="bold">build lane (later)</text>
+    <text x="175" y="712">Gradle · IL2CPP · Xcode</text>
+    <text x="175" y="730">player build for R4</text>
+  </g>
+
+  <!-- seeds -->
+  <rect x="320" y="535" width="200" height="240" rx="5" fill="#fff7ed" stroke="#c2410c" stroke-width="1.5"/>
+  <g text-anchor="middle" fill="#111827">
+    <text x="420" y="560" font-weight="bold">seeds (read-only)</text>
+    <text x="420" y="578">imported project + Library</text>
+  </g>
+  <g fill="#ffffff" stroke="#c2410c">
+    <rect x="340" y="595" width="160" height="50" rx="4"/>
+    <rect x="340" y="660" width="160" height="50" rx="4"/>
+  </g>
+  <g text-anchor="middle" fill="#111827">
+    <text x="420" y="616">unity 6000.3 · android</text>
+    <text x="420" y="633">main@a1b2</text>
+    <text x="420" y="681">unity 6000.3 · ios</text>
+    <text x="420" y="698">main@a1b2</text>
+    <text x="420" y="745" font-size="11">taken only after a clean</text>
+    <text x="420" y="760" font-size="11">editor exit</text>
+  </g>
+
+  <!-- clone / snapshot arrows -->
+  <line x1="520" y1="610" x2="638" y2="610" stroke="#c2410c" stroke-width="2" marker-end="url(#acc)"/>
+  <text x="580" y="600" text-anchor="middle" fill="#c2410c" font-weight="bold">reflink clone</text>
+  <line x1="640" y1="655" x2="522" y2="655" stroke="#c2410c" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#acc)"/>
+  <text x="580" y="675" text-anchor="middle" fill="#c2410c">snapshot after</text>
+  <text x="580" y="689" text-anchor="middle" fill="#c2410c">clean exit</text>
+
+  <!-- editor lane -->
+  <rect x="640" y="535" width="490" height="150" rx="5" fill="#ffffff" stroke="#374151"/>
+  <text x="655" y="556" font-weight="bold" fill="#111827">editor lane (R1–R3): Unity slots, one class each</text>
+  <g fill="#f9fafb" stroke="#374151">
+    <rect x="655" y="572" width="145" height="98" rx="4"/>
+    <rect x="812" y="572" width="145" height="98" rx="4"/>
+    <rect x="969" y="572" width="145" height="98" rx="4"/>
+  </g>
+  <g text-anchor="middle" fill="#111827">
+    <text x="727" y="594" font-weight="bold">slot 1</text>
+    <text x="727" y="614">android · headless</text>
+    <text x="727" y="632">running R1</text>
+    <text x="727" y="650">epoch 41</text>
+
+    <text x="884" y="594" font-weight="bold">slot 2</text>
+    <text x="884" y="614">android · graphics</text>
+    <text x="884" y="632">running R2</text>
+    <text x="884" y="650">holds gpu + quiet</text>
+
+    <text x="1041" y="594" font-weight="bold">slot 3</text>
+    <text x="1041" y="614">ios · headless</text>
+    <text x="1041" y="632">idle</text>
+    <text x="1041" y="650">pre-compiled tree C</text>
+  </g>
+
+  <!-- device lane -->
+  <rect x="640" y="700" width="490" height="75" rx="5" fill="#ffffff" stroke="#374151" stroke-dasharray="5 4"/>
+  <text x="655" y="722" font-weight="bold" fill="#111827">device lane (R4, optional)</text>
+  <text x="655" y="742" fill="#111827">Android emulator from snapshot (-read-only) · iOS simctl clone</text>
+  <text x="655" y="760" fill="#111827">USB phone leased by serial</text>
+</svg>

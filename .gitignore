@@ -1,0 +1,28 @@
+# Go build output
+/bin/
+/dist/
+*.test
+*.out
+coverage.*
+
+# Unity projects used for development and the spike (never commit a Library)
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+*.csproj
+*.sln
+
+# Local runtime state
+/state/
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+
+# Private notes, not part of the project
+docs/article-notes-infoq.md
+NEXT_SESSION.md
+.claude/

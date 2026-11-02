@@ -1,0 +1,15 @@
+{
+  "name": "com.warmbench.agent",
+  "version": "0.0.0",
+  "displayName": "warmbench agent",
+  "description": "Editor-only package that keeps a Unity editor alive as a warmbench slot and runs Test Framework jobs sent by warmbenchd. Scaffold only; nothing works yet.",
+  "unity": "2022.3",
+  "license": "MIT",
+  "dependencies": {
+    "com.unity.test-framework": "1.1.33"
+  },
+  "author": {
+    "name": "David Opaogun",
+    "url": "https://github.com/avison9"
+  }
+}
